@@ -8,31 +8,42 @@ package com.baiguomin.algo.sort;
  * @since JDK 1.7
  */
 public class InsertSort {
-	static double[]  arr =  new double[]{64,1.0,21,5,27.4,98.6};
-	
+	//对于arr数组中逆序数对的数量的不同，那么数字移动的速度就不同
+	//也就是插入排序算法的速度取决于 数组总逆序数量的多少
+//	static double[]  arr =  new double[]{64,1.0,21,5,27.4,98.6};
+	/*move Num */
 	/**
-	 * round one : 1.0,64,21,5,27.4,98.6
-	 * round two : 1.0,21,64,5,27.4,98.6
-	 * ......
+	 * round one : 1.0,64,21,5,27.4,98.6  1
+	 * round two : 1.0,21,64,5,27.4,98.6  1
+	 * round three : 1.0,5,21,64,27.4,98.6  2
+	 * round four : 1.0,5,21,27.4,61,98.6  1 
+	 * total moveNum is  5
 	 */
+	
+	static double[]  arr =  new double[]{64,21,5,27.4,98.6,1.0};
+	
 	
 	/**
 	 * 从小到大排序
-	 * 外围    0<index<len
+	 * 外围    1<=index<len
 	 * 内层  当前为curr = arr[index]  从后往前  0=<p<index-1循环，比较curr与arr[p]的大小
 	 */
 	
 	public static void main(String[] args) {
+		Integer moveNum = 0;
+		int p;
 		for(int index=1;index<arr.length;index++){
-			double tmp = arr[index];
-			for(int p = index-1;p >=0 && arr[p]>tmp;p--){
-				arr[p+1] = arr[p];
-				arr[p] = tmp;
+			double tmp = arr[index];//将index处的数据拿出来，形成一个空箱子
+			for(p = index;p > 0 && arr[p-1]>tmp;p--){//通过比较将合适的箱子不断的往后推，直到推不动
+				moveNum ++;
+				arr[p] = arr[p-1];
 			}
+			arr[p] = tmp;//将tmp的数组放到空处，完成一个数字的摆放
 		}
 		for(int index=0;index<=arr.length-1;index++){
 			System.out.println(arr[index]);
 		}
+		System.out.println("moveNum is"+moveNum);
 	}
 	
 }
