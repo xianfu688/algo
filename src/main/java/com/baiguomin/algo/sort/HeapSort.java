@@ -9,7 +9,7 @@ import java.util.Arrays;
  * @since JDK 1.7
  */
 public class HeapSort {
-	static double[]  arr =  new double[]{64,1.0,21,5,27.4,98.6};
+	static double[]  arr =  new double[10000];
 	/**
 	 * 堆排序借鉴了完全二叉树的特点，即除了最后一层不是满的，其余的均已经填满
 	 * 堆排序 zero-based  对于一个节点i>=0来说
@@ -34,6 +34,7 @@ public class HeapSort {
 		if(right <= total && arr[right] > arr[slf]) slf = right;//如果右节点比根节点大，那么就调整位置
 		if(slf!=index){
 			swap(arr, index, slf);
+			heapify(arr,slf);
 		}
 	}
 	
@@ -47,13 +48,18 @@ public class HeapSort {
 			swap(arr, 0, index);
 			total --;
 			heapify(arr, 0);
-			System.out.println("第"+(arr.length-1-total)+"遍堆化后数组:"+Arrays.toString(arr));
+//			System.out.println("第"+(arr.length-1-total)+"遍堆化后数组:"+Arrays.toString(arr));
 		}
 	}
 	
 	public static void main(String[] args) {
-		System.out.println("初始数组:"+Arrays.toString(arr));
+		for(int index =0;index<10000;index++){
+			arr[index] = Math.random();
+		}
+//		System.out.println("初始数组:"+Arrays.toString(arr));
 		sort(arr);
-		System.out.println(Arrays.toString(arr));
+		for(int index =0;index<10000;index++){
+			System.out.println(arr[index]);
+		}
 	}
 }
