@@ -20,7 +20,7 @@ public class InsertSort {
 	 * total moveNum is  5
 	 */
 	
-	static double[]  arr =  new double[]{64,21,5,27.4,98.6,1.0};
+	static double[]  arr =  new double[10000];
 	
 	
 	/**
@@ -30,6 +30,9 @@ public class InsertSort {
 	 */
 	
 	public static void main(String[] args) {
+		for(int index=0;index<10000;index++){
+			arr[index] = Math.random();
+		}//moveNum is24953597
 		Integer moveNum = 0;
 		int p;
 		for(int index=1;index<arr.length;index++){
