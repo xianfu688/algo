@@ -20,7 +20,7 @@ public class InsertSort {
 	 * total moveNum is  5
 	 */
 	
-	static double[]  arr =  new double[10000];
+	static double[]  arr =  new double[100000];
 	
 	
 	/**
@@ -30,9 +30,11 @@ public class InsertSort {
 	 */
 	
 	public static void main(String[] args) {
-		for(int index=0;index<10000;index++){
+		for(int index=0;index<100000;index++){
 			arr[index] = Math.random();
 		}//moveNum is24953597
+		Long startTime = System.currentTimeMillis();
+		
 		Integer moveNum = 0;
 		int p;
 		for(int index=1;index<arr.length;index++){
@@ -43,10 +45,8 @@ public class InsertSort {
 			}
 			arr[p] = tmp;//将tmp的数组放到空处，完成一个数字的摆放
 		}
-		for(int index=0;index<=arr.length-1;index++){
-			System.out.println(arr[index]);
-		}
-		System.out.println("moveNum is"+moveNum);
+		
+		System.out.println("cost time is"+(System.currentTimeMillis()-startTime));
 	}
 	
 }

@@ -8,7 +8,7 @@ package com.baiguomin.algo.sort;
  */
 public class ShellSort {
 
-	static double[]  arr =  new double[10000];
+	static double[]  arr =  new double[10000000];
 	/**
 	 * 上述数组用插入排序moveNum = 9 
 	 * 希尔排序是对插入排序的改进，插入排序中的步长是1，也就是每一次数字比较的对象是和它相差一位
@@ -17,9 +17,11 @@ public class ShellSort {
 	 * 希尔排序对插入排序的改进就是将数组的moveNum降低了
 	 */
 	public static void main(String[] args) {
-		for(int index=0;index<10000;index++){
+		for(int index=0;index<10000000;index++){
 			arr[index] = Math.random();
 		}//moveNum is153588
+		Long startTime = System.currentTimeMillis();
+		
 		
 		Integer moveNum = 0;
 		int p;
@@ -35,13 +37,6 @@ public class ShellSort {
 				arr[p]= tmp;
 			}
 		}
-		for(int index=0;index<arr.length;index++){
-			System.out.println(arr[index]);
-		}
-		System.out.println("moveNum is"+moveNum);
+		System.out.println("cost time is"+(System.currentTimeMillis()-startTime));
 	}
-	
-	
-	
-	
 }

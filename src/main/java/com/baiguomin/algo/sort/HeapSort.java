@@ -9,7 +9,7 @@ import java.util.Arrays;
  * @since JDK 1.7
  */
 public class HeapSort {
-	static double[]  arr =  new double[10000];
+	static double[]  arr =  new double[10000000];
 	/**
 	 * 堆排序借鉴了完全二叉树的特点，即除了最后一层不是满的，其余的均已经填满
 	 * 堆排序 zero-based  对于一个节点i>=0来说
@@ -43,7 +43,6 @@ public class HeapSort {
 		for(int index=total/2;index>=0;index--){
 			heapify(arr, index);
 		}
-		System.out.println("第0遍堆化后数组:"+Arrays.toString(arr));
 		for(int index=total;index>0;index--){
 			swap(arr, 0, index);
 			total --;
@@ -53,13 +52,12 @@ public class HeapSort {
 	}
 	
 	public static void main(String[] args) {
-		for(int index =0;index<10000;index++){
+		for(int index =0;index<10000000;index++){
 			arr[index] = Math.random();
 		}
+		Long startTime = System.currentTimeMillis();
 //		System.out.println("初始数组:"+Arrays.toString(arr));
 		sort(arr);
-		for(int index =0;index<10000;index++){
-			System.out.println(arr[index]);
-		}
+		System.out.println("cost time is"+(System.currentTimeMillis()-startTime));
 	}
 }
