@@ -56,7 +56,7 @@ public class HeapSort {
 			arr[index] = Math.random();
 		}
 		Long startTime = System.currentTimeMillis();
-//		System.out.println("初始数组:"+Arrays.toString(arr));
+		System.out.println("初始数组:"+Arrays.toString(arr));
 		sort(arr);
 		System.out.println("cost time is"+(System.currentTimeMillis()-startTime));
 	}
