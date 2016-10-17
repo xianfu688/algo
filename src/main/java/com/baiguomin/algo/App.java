@@ -1,7 +1,5 @@
 package com.baiguomin.algo;
 
-import javax.xml.parsers.FactoryConfigurationError;
-
 import com.baiguomin.algo.sort.FastSort;
 import com.baiguomin.algo.sort.HeapSort;
 import com.baiguomin.algo.sort.InsertSort;

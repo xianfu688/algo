@@ -1,6 +1,5 @@
 package com.baiguomin.algo.sort;
 
-import java.util.Arrays;
 
 /**
  * ClassName: HeapSort <br/>
