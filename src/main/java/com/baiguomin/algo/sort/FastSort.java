@@ -19,7 +19,7 @@ public class FastSort {
 //		printArr(arr);
 		fastSort(arr,0,arr.length-1);
 //		printArr(arr);
-		System.out.println("cost time is"+(System.currentTimeMillis()-startTime));
+		System.out.println("fastSort cost time is"+(System.currentTimeMillis()-startTime));
 	}
 	
 	static void printArr(double[] arr){

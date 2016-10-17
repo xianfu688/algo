@@ -20,7 +20,7 @@ public class MergeSort {
 		double[] tmp = new double[arr.length];
 		Long startTime = System.currentTimeMillis();
 		mergeSort(arr,tmp,0,arr.length-1);
-		System.out.println("cost time is"+(System.currentTimeMillis()-startTime));
+		System.out.println("mergeSort cost time is"+(System.currentTimeMillis()-startTime));
 //		for(int index=0;index<arr.length;index++){
 //			System.out.println(arr[index]);
 //		}

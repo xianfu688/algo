@@ -37,6 +37,6 @@ public class ShellSort {
 				arr[p]= tmp;
 			}
 		}
-		System.out.println("cost time is"+(System.currentTimeMillis()-startTime));
+		System.out.println("shellSort cost time is"+(System.currentTimeMillis()-startTime));
 	}
 }

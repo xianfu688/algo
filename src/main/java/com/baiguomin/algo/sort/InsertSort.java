@@ -46,7 +46,7 @@ public class InsertSort {
 			arr[p] = tmp;//将tmp的数组放到空处，完成一个数字的摆放
 		}
 		
-		System.out.println("cost time is"+(System.currentTimeMillis()-startTime));
+		System.out.println("inserSort cost time is"+(System.currentTimeMillis()-startTime));
 	}
 	
 }
