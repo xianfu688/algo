@@ -4,7 +4,7 @@ package com.baiguomin.algo.sort;
  * ClassName: InsertSort <br/>
  * 插入排序算法
  * date: 2016年9月21日 上午9:16:48 <br/>
- * @author baiguomin
+ * @author baiguomin1991@163.com
  * @since JDK 1.7
  */
 public class InsertSort {

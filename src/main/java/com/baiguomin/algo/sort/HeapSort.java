@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * ClassName: HeapSort <br/>
  * date: 2016年9月23日 上午9:36:33 <br/>
- * @author Administrator
+ * @author baiguomin1991@163.com
  * @since JDK 1.7
  */
 public class HeapSort {

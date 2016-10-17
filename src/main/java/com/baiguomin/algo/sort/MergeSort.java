@@ -1,5 +1,10 @@
 package com.baiguomin.algo.sort;
-
+/**
+ * ClassName: MergeSort <br/>
+ * date: 2016年10月17日 下午9:36:56 <br/>
+ * @author baiguomin1991@163.com
+ * @since JDK 1.7
+ */
 public class MergeSort {
 	static double[] arr  = new double[10000000];
 	/**

@@ -1,7 +1,13 @@
 package com.baiguomin.algo.sort;
 
-import java.util.Arrays;
-
+/**
+ * 快速排序
+ * ClassName: FastSort <br/>
+ * date: 2016年10月17日 下午9:36:11 <br/>
+ * @author baiguomin1991@163.com
+ * 原理：对于一个有序数列来说，除了开头和结尾这两个元素之外，其他元素均具备特性，左边的数字比他小，右边的数字比他大
+ * @since JDK 1.7
+ */
 public class FastSort {
 	static double[]  arr =  new double[10000000];
 	

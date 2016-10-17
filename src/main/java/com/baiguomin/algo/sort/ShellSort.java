@@ -3,7 +3,7 @@ package com.baiguomin.algo.sort;
 /**
  * ClassName: ShellSort <br/>
  * date: 2016年9月22日 上午9:54:28 <br/>
- * @author baiguomin
+ * @author baiguomin1991@163.com
  * @since JDK 1.7
  */
 public class ShellSort {
