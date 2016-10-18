@@ -1,5 +1,7 @@
 package com.baiguomin.algo.search;
 
+import com.baiguomin.algo.sort.FastSort;
+
 /**
  * ClassName: ArrayBinarySearch <br/>
  * date: 2016年10月18日 上午10:17:58 <br/>
@@ -9,12 +11,20 @@ package com.baiguomin.algo.search;
  * @since JDK 1.7
  */
 public class ArrayBinarySearch {
-	static double[] arr = new double[]{1,2,3,4,5,6,7,8,9};//我们假定此数组是有序的
+	static double[] arr = new double[10000000];//我们假定此数组是有序的
 	
 	public static void main(String[] args) {
-		double destanation = 9;//这个使我们的查找目标，如果存在，返回下标，如果不存在，就返回-1
+		double destanation = Math.random();//这个使我们的查找目标，如果存在，返回下标，如果不存在，就返回-1
+		arr[0] = destanation;
+		System.out.println("destanation is"+destanation);
+		for(int index=1;index<10000000;index++){
+			arr[index] = Math.random();
+		}
+		//此处可以调用快速排序
+		Long startTime = System.currentTimeMillis();
 		int index = binarySearch(arr,destanation);
-		System.out.println("index is"+index);
+		System.out.println("index is"+index+"and cost time is"+(System.currentTimeMillis() - startTime)+"ms");
+		System.out.println(arr[index] == destanation);
 	}
 
 	private static int binarySearch(double[] arr, double destanation) {
