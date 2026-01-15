@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fanshein - Enterprise Quality, Startup Price</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff; --bg-secondary: #f9fafb; --bg-tertiary: #f3f4f6;
+            --text: #0a0a0a; --text-muted: #6b7280; --border: #e5e7eb;
+            --primary: #0a0a0a; --primary-hover: #1f1f1f; --accent: #3b82f6;
+            --card-bg: #ffffff; --gradient-1: #3b82f6; --gradient-2: #8b5cf6;
+        }
+        .dark {
+            --bg: #0a0a0a; --bg-secondary: #111111; --bg-tertiary: #171717;
+            --text: #fafafa; --text-muted: #a1a1aa; --border: #27272a;
+            --primary: #fafafa; --primary-hover: #e4e4e7; --card-bg: #18181b;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; transition: background 0.3s, color 0.3s; }
+        .grid-bg { position: fixed; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 60px 60px; opacity: 0.4; pointer-events: none; mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%); }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); background: rgba(255,255,255,0.9); }
+        .dark nav { background: rgba(10,10,10,0.9); }
+        .nav-container { max-width: 1280px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--text); text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--text); }
+        .nav-right { display: flex; align-items: center; gap: 1rem; }
+        .theme-toggle { background: none; border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem; cursor: pointer; color: var(--text); display: flex; align-items: center; }
+        .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.25rem; border-radius: 9999px; font-weight: 500; font-size: 0.875rem; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; }
+        .btn-primary { background: var(--primary); color: var(--bg); }
+        .btn-primary:hover { transform: translateY(-1px); }
+        .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+        .btn-secondary:hover { background: var(--bg-secondary); }
+        .btn-accent { background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2)); color: white; }
+        section { padding: 6rem 2rem; position: relative; }
+        .container { max-width: 1280px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-label { font-size: 0.875rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+        .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem; }
+        .section-desc { color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+
+        /* Hero */
+        .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 8rem 2rem 4rem; }
+        .badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 9999px; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 2rem; animation: fadeInUp 0.6s ease; }
+        .badge-dot { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; max-width: 900px; margin-bottom: 1.5rem; animation: fadeInUp 0.6s ease 0.1s backwards; }
+        .gradient-text { background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.125rem; color: var(--text-muted); max-width: 600px; margin-bottom: 2.5rem; animation: fadeInUp 0.6s ease 0.2s backwards; }
+        .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; animation: fadeInUp 0.6s ease 0.3s backwards; }
+        .hero-stats { display: flex; gap: 4rem; margin-top: 5rem; padding-top: 3rem; border-top: 1px solid var(--border); animation: fadeInUp 0.6s ease 0.4s backwards; }
+        .stat { text-align: center; }
+        .stat-value { font-size: 2.5rem; font-weight: 700; }
+        .stat-label { font-size: 0.875rem; color: var(--text-muted); }
+
+        /* Trusted */
+        .trusted-by { padding: 4rem 2rem; background: var(--bg-secondary); }
+        .trusted-label { text-align: center; font-size: 0.875rem; color: var(--text-muted); margin-bottom: 2rem; }
+        .logos-grid { display: flex; justify-content: center; align-items: center; gap: 4rem; flex-wrap: wrap; opacity: 0.6; }
+        .logo-item { font-size: 1.5rem; font-weight: 700; color: var(--text-muted); }
+
+        /* About */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .about-text h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 1.5rem; }
+        .about-text p { color: var(--text-muted); margin-bottom: 1rem; line-height: 1.8; }
+        .about-highlights { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        .highlight-card { padding: 1.5rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; transition: all 0.3s; }
+        .highlight-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .highlight-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+        .highlight-value { font-size: 2rem; font-weight: 700; color: var(--accent); }
+        .highlight-label { font-size: 0.875rem; color: var(--text-muted); }
+
+        /* Services */
+        .services { background: var(--bg-secondary); }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .service-card { padding: 2rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; transition: all 0.3s; }
+        .service-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-color: var(--accent); }
+        .service-icon { width: 48px; height: 48px; background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem; }
+        .service-card h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; }
+        .service-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
+
+        /* Tech Stack */
+        .tech-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+        .tech-category { padding: 2rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; }
+        .tech-category h4 { font-size: 0.875rem; font-weight: 600; color: var(--accent); margin-bottom: 1rem; text-transform: uppercase; }
+        .tech-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .tech-item { padding: 0.375rem 0.75rem; background: var(--bg-secondary); border-radius: 6px; font-size: 0.8rem; color: var(--text-muted); }
+
+        /* Showcase */
+        .showcase { background: var(--bg-secondary); }
+        .showcase-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        .showcase-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; transition: all 0.3s; }
+        .showcase-card:hover { transform: translateY(-8px); box-shadow: 0 30px 60px rgba(0,0,0,0.15); }
+        .showcase-image { height: 200px; background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2)); display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+        .showcase-content { padding: 2rem; }
+        .showcase-tags { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+        .showcase-tag { padding: 0.25rem 0.75rem; background: var(--bg-secondary); border-radius: 9999px; font-size: 0.75rem; color: var(--text-muted); }
+        .showcase-card h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.75rem; }
+        .showcase-card > .showcase-content > p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1rem; }
+        .showcase-stats { display: flex; gap: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+        .showcase-stat-value { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+        .showcase-stat-label { font-size: 0.75rem; color: var(--text-muted); }
+
+        /* Testimonials */
+        .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .testimonial-card { padding: 2rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; transition: all 0.3s; }
+        .testimonial-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .testimonial-rating { color: #fbbf24; font-size: 1.1rem; margin-bottom: 1rem; }
+        .testimonial-text { font-size: 1rem; line-height: 1.8; margin-bottom: 1.5rem; font-style: italic; }
+        .testimonial-author { display: flex; align-items: center; gap: 1rem; }
+        .testimonial-avatar { width: 48px; height: 48px; background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; }
+        .testimonial-info h4 { font-size: 0.95rem; font-weight: 600; }
+        .testimonial-info p { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* Blog */
+        .blog { background: var(--bg-secondary); }
+        .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .blog-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: all 0.3s; }
+        .blog-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .blog-image { height: 160px; background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+        .blog-content { padding: 1.5rem; }
+        .blog-meta { display: flex; gap: 1rem; margin-bottom: 0.75rem; }
+        .blog-category { font-size: 0.75rem; font-weight: 600; color: var(--accent); text-transform: uppercase; }
+        .blog-date { font-size: 0.75rem; color: var(--text-muted); }
+        .blog-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; line-height: 1.4; }
+        .blog-card > .blog-content > p { color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; }
+        .blog-link { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1rem; font-size: 0.875rem; font-weight: 500; color: var(--accent); text-decoration: none; }
+
+        /* Process */
+        .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+        .process-card { text-align: center; padding: 2rem; }
+        .process-number { width: 60px; height: 60px; background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; color: white; margin: 0 auto 1.5rem; }
+        .process-card h4 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
+        .process-card p { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* Team */
+        .team { background: var(--bg-secondary); }
+        .team-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-bottom: 4rem; }
+        .team-stat-card { text-align: center; padding: 2rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; }
+        .team-stat-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .team-stat-value { font-size: 2rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .team-stat-label { font-size: 0.875rem; color: var(--text-muted); }
+        .team-desc { max-width: 800px; margin: 0 auto; text-align: center; }
+        .team-desc p { color: var(--text-muted); font-size: 1.1rem; line-height: 1.8; margin-bottom: 1rem; }
+
+        /* Pricing */
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .pricing-card { padding: 2.5rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; display: flex; flex-direction: column; transition: all 0.3s; }
+        .pricing-card.featured { background: linear-gradient(135deg, #1e293b, #0f172a); border-color: transparent; transform: scale(1.02); color: white; }
+        .pricing-card.featured .pricing-name, .pricing-card.featured .pricing-price, .pricing-card.featured .pricing-desc, .pricing-card.featured .pricing-features li { color: white; }
+        .pricing-card.featured .pricing-features li::before { color: #60a5fa; }
+        .pricing-badge { display: inline-block; padding: 0.25rem 0.75rem; background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2)); border-radius: 9999px; font-size: 0.75rem; font-weight: 600; color: white; margin-bottom: 1rem; width: fit-content; }
+        .pricing-name { font-size: 1.1rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.5rem; }
+        .pricing-price { font-size: 3rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .pricing-price span { font-size: 1rem; font-weight: 400; color: var(--text-muted); }
+        .pricing-desc { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem; min-height: 50px; }
+        .pricing-features { list-style: none; flex-grow: 1; margin-bottom: 2rem; }
+        .pricing-features li { padding: 0.75rem 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.75rem; }
+        .pricing-features li::before { content: '✓'; color: var(--accent); font-weight: 700; }
+        .pricing-card.featured .pricing-features li { border-color: rgba(255,255,255,0.1); }
+        .pricing-btn { width: 100%; justify-content: center; }
+        .pricing-card.featured .pricing-btn { background: white; color: #0f172a; }
+
+        /* FAQ */
+        .faq { background: var(--bg-secondary); }
+        .faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 1000px; margin: 0 auto; }
+        .faq-item { padding: 1.5rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; }
+        .faq-question { font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.75rem; }
+        .faq-question::before { content: 'Q'; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: var(--accent); color: white; border-radius: 6px; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; }
+        .faq-answer { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; padding-left: 2.25rem; }
+
+        /* CTA */
+        .cta { background: linear-gradient(135deg, #1e293b, #0f172a); color: white; text-align: center; }
+        .cta h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin-bottom: 1rem; }
+        .cta p { color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto 2rem; }
+        .cta .btn-primary { background: white; color: #0f172a; }
+
+        /* Contact */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+        .contact-info h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; }
+        .contact-info > p { color: var(--text-muted); margin-bottom: 2rem; }
+        .contact-item { display: flex; align-items: center; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+        .contact-icon { width: 40px; height: 40px; background: var(--bg-secondary); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
+        .contact-detail h4 { font-size: 0.875rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .contact-detail p { color: var(--text-muted); font-size: 0.9rem; margin: 0; }
+        .contact-detail a { color: var(--accent); text-decoration: none; }
+        .contact-form-wrapper { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; padding: 2rem; }
+        .contact-form h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group label { display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.5rem; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.875rem 1rem; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; font-family: inherit; font-size: 0.95rem; color: var(--text); }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--accent); }
+        .form-group textarea { min-height: 120px; resize: vertical; }
+
+        /* Footer */
+        footer { background: var(--bg-secondary); border-top: 1px solid var(--border); padding: 4rem 2rem 2rem; }
+        .footer-content { max-width: 1280px; margin: 0 auto; }
+        .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 3rem; }
+        .footer-brand p { color: var(--text-muted); font-size: 0.9rem; max-width: 300px; margin-top: 1rem; line-height: 1.7; }
+        .footer-column h4 { font-size: 0.875rem; font-weight: 600; margin-bottom: 1.25rem; }
+        .footer-column ul { list-style: none; }
+        .footer-column li { margin-bottom: 0.75rem; }
+        .footer-column a { color: var(--text-muted); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+        .footer-column a:hover { color: var(--text); }
+        .footer-bottom { padding-top: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .footer-copyright { color: var(--text-muted); font-size: 0.875rem; }
+        .brand-watermark { font-size: clamp(4rem, 15vw, 12rem); font-weight: 800; text-align: center; background: linear-gradient(180deg, var(--border) 0%, transparent 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.04em; line-height: 1; margin-top: 2rem; user-select: none; }
+
+        /* Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .services-grid, .pricing-grid, .testimonials-grid, .blog-grid { grid-template-columns: repeat(2, 1fr); }
+            .about-grid, .contact-grid { grid-template-columns: 1fr; }
+            .tech-grid, .process-grid, .team-stats { grid-template-columns: repeat(2, 1fr); }
+            .showcase-grid, .footer-top { grid-template-columns: 1fr; }
+            .pricing-card.featured { transform: none; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-stats { flex-direction: column; gap: 2rem; }
+            .services-grid, .pricing-grid, .testimonials-grid, .blog-grid, .tech-grid, .process-grid, .team-stats, .faq-grid, .about-highlights { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Fanshein</a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#showcase">Work</a>
+                <a href="#testimonials">Reviews</a>
+                <a href="#blog">Blog</a>
+                <a href="#pricing">Pricing</a>
+            </div>
+            <div class="nav-right">
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                </button>
+                <a href="#contact" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="badge"><span class="badge-dot"></span>Enterprise Quality, Startup Price</div>
+        <h1>Build <span class="gradient-text">Smarter</span>.<br>Scale Faster.</h1>
+        <p>100+ years of combined expertise. 10 senior engineers. One mission: transforming your complex challenges into elegant, scalable solutions.</p>
+        <div class="hero-buttons">
+            <a href="#contact" class="btn btn-accent">Start Your Project →</a>
+            <a href="#showcase" class="btn btn-secondary">View Our Work</a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat"><div class="stat-value">6+</div><div class="stat-label">Years in Business</div></div>
+            <div class="stat"><div class="stat-value">200+</div><div class="stat-label">Projects Delivered</div></div>
+            <div class="stat"><div class="stat-value">10</div><div class="stat-label">Expert Engineers</div></div>
+            <div class="stat"><div class="stat-value">98%</div><div class="stat-label">Client Satisfaction</div></div>
+        </div>
+    </section>
+
+    <section class="trusted-by">
+        <p class="trusted-label">Trusted by innovative companies worldwide</p>
+        <div class="logos-grid">
+            <span class="logo-item">TechCorp</span>
+            <span class="logo-item">StartupX</span>
+            <span class="logo-item">DataFlow</span>
+            <span class="logo-item">CloudBase</span>
+            <span class="logo-item">FinanceHub</span>
+            <span class="logo-item">RetailPro</span>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <h2>Your Trusted IT Partner Since 2019</h2>
+                    <p>Founded in 2019, Fanshein has rapidly established itself as a premier IT outsourcing partner for businesses seeking exceptional technical solutions without the enterprise-level price tag.</p>
+                    <p>At the heart of Fanshein lies our extraordinary team of 10 senior engineers, each bringing decades of hands-on experience. With a combined expertise exceeding 100 years in software development, cloud architecture, and digital transformation, we represent one of the most concentrated pools of technical talent in the industry.</p>
+                    <p>We believe that world-class technology should not be a privilege reserved for Fortune 500 companies. Every line of code we write meets the rigorous standards of top-tier consulting firms — at a fraction of the cost.</p>
+                </div>
+                <div class="about-highlights">
+                    <div class="highlight-card reveal"><div class="highlight-icon">🎯</div><div class="highlight-value">100+</div><div class="highlight-label">Years Combined Experience</div></div>
+                    <div class="highlight-card reveal"><div class="highlight-icon">⭐</div><div class="highlight-value">98%</div><div class="highlight-label">Client Satisfaction Rate</div></div>
+                    <div class="highlight-card reveal"><div class="highlight-icon">🔄</div><div class="highlight-value">95%</div><div class="highlight-label">Client Retention Rate</div></div>
+                    <div class="highlight-card reveal"><div class="highlight-icon">🚀</div><div class="highlight-value">200+</div><div class="highlight-label">Projects Delivered</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Services</div>
+                <h2 class="section-title">Full-Stack IT Solutions</h2>
+                <p class="section-desc">From concept to deployment, we handle every aspect of your technology needs with precision and expertise.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal"><div class="service-icon">🌐</div><h3>Web Development</h3><p>Custom web applications built with React, Vue, Angular, and Next.js. Responsive, performant, and scalable solutions.</p></div>
+                <div class="service-card reveal"><div class="service-icon">📱</div><h3>Mobile Apps</h3><p>Native iOS/Android and cross-platform apps using Swift, Kotlin, React Native, and Flutter with pixel-perfect UI.</p></div>
+                <div class="service-card reveal"><div class="service-icon">☁️</div><h3>Cloud & DevOps</h3><p>AWS, Azure, GCP migration and optimization. CI/CD pipelines, Kubernetes, and Infrastructure as Code.</p></div>
+                <div class="service-card reveal"><div class="service-icon">🔒</div><h3>Cyber Security</h3><p>Security audits, penetration testing, compliance consulting, and robust protection for your digital assets.</p></div>
+                <div class="service-card reveal"><div class="service-icon">🤖</div><h3>AI & Machine Learning</h3><p>Custom ML models, NLP solutions, and intelligent automation to transform your data into insights.</p></div>
+                <div class="service-card reveal"><div class="service-icon">⚡</div><h3>API Development</h3><p>RESTful and GraphQL APIs, microservices architecture, and seamless third-party integrations.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tech">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Technology</div>
+                <h2 class="section-title">Our Tech Stack</h2>
+                <p class="section-desc">We work with the latest technologies to deliver modern, scalable solutions.</p>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-category reveal"><h4>Frontend</h4><div class="tech-list"><span class="tech-item">React</span><span class="tech-item">Vue.js</span><span class="tech-item">Next.js</span><span class="tech-item">Angular</span><span class="tech-item">TypeScript</span><span class="tech-item">Tailwind</span></div></div>
+                <div class="tech-category reveal"><h4>Backend</h4><div class="tech-list"><span class="tech-item">Node.js</span><span class="tech-item">Python</span><span class="tech-item">Java</span><span class="tech-item">Go</span><span class="tech-item">PHP</span><span class="tech-item">.NET</span></div></div>
+                <div class="tech-category reveal"><h4>Cloud & DevOps</h4><div class="tech-list"><span class="tech-item">AWS</span><span class="tech-item">Azure</span><span class="tech-item">GCP</span><span class="tech-item">Docker</span><span class="tech-item">Kubernetes</span><span class="tech-item">Terraform</span></div></div>
+                <div class="tech-category reveal"><h4>Databases</h4><div class="tech-list"><span class="tech-item">PostgreSQL</span><span class="tech-item">MongoDB</span><span class="tech-item">MySQL</span><span class="tech-item">Redis</span><span class="tech-item">Elasticsearch</span></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="showcase" id="showcase">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Case Studies</div>
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-desc">Real solutions we've built for real businesses.</p>
+            </div>
+            <div class="showcase-grid">
+                <div class="showcase-card reveal">
+                    <div class="showcase-image">🛒</div>
+                    <div class="showcase-content">
+                        <div class="showcase-tags"><span class="showcase-tag">E-Commerce</span><span class="showcase-tag">React</span><span class="showcase-tag">Node.js</span></div>
+                        <h3>Global E-Commerce Platform</h3>
+                        <p>Built a scalable multi-vendor marketplace handling 50,000+ daily transactions with AI-powered recommendations across 30+ countries.</p>
+                        <div class="showcase-stats">
+                            <div><div class="showcase-stat-value">300%</div><div class="showcase-stat-label">Revenue Growth</div></div>
+                            <div><div class="showcase-stat-value">50K+</div><div class="showcase-stat-label">Daily Orders</div></div>
+                            <div><div class="showcase-stat-value">99.9%</div><div class="showcase-stat-label">Uptime</div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="showcase-card reveal">
+                    <div class="showcase-image" style="background:linear-gradient(135deg,#10b981,#059669)">💰</div>
+                    <div class="showcase-content">
+                        <div class="showcase-tags"><span class="showcase-tag">FinTech</span><span class="showcase-tag">Python</span><span class="showcase-tag">AWS</span></div>
+                        <h3>AI-Powered Trading Platform</h3>
+                        <p>Developed a sophisticated algorithmic trading system with real-time market analysis and sub-millisecond latency.</p>
+                        <div class="showcase-stats">
+                            <div><div class="showcase-stat-value">$2B+</div><div class="showcase-stat-label">Assets Managed</div></div>
+                            <div><div class="showcase-stat-value"><1ms</div><div class="showcase-stat-label">Latency</div></div>
+                            <div><div class="showcase-stat-value">45%</div><div class="showcase-stat-label">Better Returns</div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="showcase-card reveal">
+                    <div class="showcase-image" style="background:linear-gradient(135deg,#f59e0b,#d97706)">🏥</div>
+                    <div class="showcase-content">
+                        <div class="showcase-tags"><span class="showcase-tag">Healthcare</span><span class="showcase-tag">React Native</span><span class="showcase-tag">HIPAA</span></div>
+                        <h3>Telemedicine Platform</h3>
+                        <p>Created a comprehensive telehealth solution with video consultations, EHR integration, and HIPAA compliance.</p>
+                        <div class="showcase-stats">
+                            <div><div class="showcase-stat-value">500K+</div><div class="showcase-stat-label">Patients Served</div></div>
+                            <div><div class="showcase-stat-value">10K+</div><div class="showcase-stat-label">Doctors</div></div>
+                            <div><div class="showcase-stat-value">4.9★</div><div class="showcase-stat-label">App Rating</div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="showcase-card reveal">
+                    <div class="showcase-image" style="background:linear-gradient(135deg,#ec4899,#be185d)">📊</div>
+                    <div class="showcase-content">
+                        <div class="showcase-tags"><span class="showcase-tag">SaaS</span><span class="showcase-tag">Vue.js</span><span class="showcase-tag">Kubernetes</span></div>
+                        <h3>Enterprise Analytics Dashboard</h3>
+                        <p>Built a real-time business intelligence platform with customizable dashboards and predictive analytics.</p>
+                        <div class="showcase-stats">
+                            <div><div class="showcase-stat-value">1M+</div><div class="showcase-stat-label">Daily Queries</div></div>
+                            <div><div class="showcase-stat-value">200+</div><div class="showcase-stat-label">Enterprise Clients</div></div>
+                            <div><div class="showcase-stat-value">60%</div><div class="showcase-stat-label">Time Saved</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Testimonials</div>
+                <h2 class="section-title">What Our Clients Say</h2>
+                <p class="section-desc">Don't just take our word for it. Here's what our clients have to say.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">"Fanshein transformed our entire digital infrastructure. Their expertise in cloud migration saved us over $200K annually while improving performance by 300%."</p>
+                    <div class="testimonial-author"><div class="testimonial-avatar">JC</div><div class="testimonial-info"><h4>James Chen</h4><p>CTO, TechVentures Inc.</p></div></div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">"Working with Fanshein was a game-changer. They delivered our MVP in 8 weeks, and we secured $5M in Series A funding within months of launch."</p>
+                    <div class="testimonial-author"><div class="testimonial-avatar">SM</div><div class="testimonial-info"><h4>Sarah Mitchell</h4><p>Founder, DataFlow AI</p></div></div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">"The level of communication and transparency is unmatched. Weekly demos, detailed reports, and always on time. They feel like part of our team."</p>
+                    <div class="testimonial-author"><div class="testimonial-avatar">MR</div><div class="testimonial-info"><h4>Michael Rodriguez</h4><p>VP Engineering, RetailPro</p></div></div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">"We've worked with many outsourcing firms, but Fanshein is in a league of their own. Their senior engineers truly understand enterprise architecture."</p>
+                    <div class="testimonial-author"><div class="testimonial-avatar">EW</div><div class="testimonial-info"><h4>Emily Watson</h4><p>Director of IT, GlobalBank</p></div></div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">"Fanshein's security team identified vulnerabilities that three previous auditors missed. Our platform is now virtually bulletproof."</p>
+                    <div class="testimonial-author"><div class="testimonial-avatar">DK</div><div class="testimonial-info"><h4>David Kim</h4><p>CISO, HealthSecure</p></div></div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">"From concept to launch in 12 weeks. The app has a 4.9-star rating and over 100K downloads. Their attention to UX is remarkable."</p>
+                    <div class="testimonial-author"><div class="testimonial-avatar">LP</div><div class="testimonial-info"><h4>Lisa Park</h4><p>CEO, FitLife App</p></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog" id="blog">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Blog</div>
+                <h2 class="section-title">Insights & Resources</h2>
+                <p class="section-desc">Stay updated with the latest in technology and best practices.</p>
+            </div>
+            <div class="blog-grid">
+                <div class="blog-card reveal"><div class="blog-image">🚀</div><div class="blog-content"><div class="blog-meta"><span class="blog-category">DevOps</span><span class="blog-date">Jan 10, 2025</span></div><h3>Kubernetes Best Practices for Production</h3><p>Learn essential strategies for running reliable, scalable Kubernetes clusters.</p><a href="#" class="blog-link">Read More →</a></div></div>
+                <div class="blog-card reveal"><div class="blog-image">🤖</div><div class="blog-content"><div class="blog-meta"><span class="blog-category">AI/ML</span><span class="blog-date">Jan 8, 2025</span></div><h3>Integrating LLMs into Enterprise Apps</h3><p>A practical guide to implementing large language models in business applications.</p><a href="#" class="blog-link">Read More →</a></div></div>
+                <div class="blog-card reveal"><div class="blog-image">🔒</div><div class="blog-content"><div class="blog-meta"><span class="blog-category">Security</span><span class="blog-date">Jan 5, 2025</span></div><h3>Zero Trust Architecture Guide</h3><p>How to implement zero trust security to protect against modern threats.</p><a href="#" class="blog-link">Read More →</a></div></div>
+                <div class="blog-card reveal"><div class="blog-image">⚡</div><div class="blog-content"><div class="blog-meta"><span class="blog-category">Performance</span><span class="blog-date">Jan 3, 2025</span></div><h3>Optimizing React Apps for Scale</h3><p>Advanced techniques for building lightning-fast React applications.</p><a href="#" class="blog-link">Read More →</a></div></div>
+                <div class="blog-card reveal"><div class="blog-image">☁️</div><div class="blog-content"><div class="blog-meta"><span class="blog-category">Cloud</span><span class="blog-date">Dec 28, 2024</span></div><h3>AWS vs Azure vs GCP Comparison</h3><p>In-depth comparison of major cloud providers for your needs.</p><a href="#" class="blog-link">Read More →</a></div></div>
+                <div class="blog-card reveal"><div class="blog-image">📱</div><div class="blog-content"><div class="blog-meta"><span class="blog-category">Mobile</span><span class="blog-date">Dec 25, 2024</span></div><h3>React Native vs Flutter in 2025</h3><p>Which cross-platform framework should you choose?</p><a href="#" class="blog-link">Read More →</a></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Process</div>
+                <h2 class="section-title">How We Work</h2>
+                <p class="section-desc">Our proven methodology ensures your project succeeds.</p>
+            </div>
+            <div class="process-grid">
+                <div class="process-card reveal"><div class="process-number">1</div><h4>Discovery</h4><p>We dive deep into your requirements, goals, and challenges to understand your business.</p></div>
+                <div class="process-card reveal"><div class="process-number">2</div><h4>Planning</h4><p>Detailed technical specifications, architecture design, and project roadmap for approval.</p></div>
+                <div class="process-card reveal"><div class="process-number">3</div><h4>Development</h4><p>Agile sprints with weekly demos. You'll see progress every step of the way.</p></div>
+                <div class="process-card reveal"><div class="process-number">4</div><h4>Launch & Support</h4><p>Thorough QA, deployment, and ongoing support for long-term success.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="team">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Our Team</div>
+                <h2 class="section-title">Meet the Experts</h2>
+                <p class="section-desc">A powerhouse team of senior engineers from the world's leading tech companies.</p>
+            </div>
+            <div class="team-stats">
+                <div class="team-stat-card reveal"><div class="team-stat-icon">👨‍💻</div><div class="team-stat-value">10</div><div class="team-stat-label">Senior Engineers</div></div>
+                <div class="team-stat-card reveal"><div class="team-stat-icon">🎓</div><div class="team-stat-value">100+</div><div class="team-stat-label">Years Combined Experience</div></div>
+                <div class="team-stat-card reveal"><div class="team-stat-icon">🏆</div><div class="team-stat-value">50+</div><div class="team-stat-label">Certifications Held</div></div>
+                <div class="team-stat-card reveal"><div class="team-stat-icon">🌍</div><div class="team-stat-value">15+</div><div class="team-stat-label">Countries Served</div></div>
+            </div>
+            <div class="team-desc">
+                <p>Our engineers have previously worked at Google, Amazon, Microsoft, Meta, and leading startups. Every team member averages 10+ years of experience, bringing battle-tested expertise to your project.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Pricing</div>
+                <h2 class="section-title">Transparent, Fair Pricing</h2>
+                <p class="section-desc">Enterprise-quality development at startup-friendly rates.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card reveal">
+                    <div class="pricing-name">Starter</div>
+                    <div class="pricing-price">$999<span>/mo</span></div>
+                    <p class="pricing-desc">Perfect for startups and small projects.</p>
+                    <ul class="pricing-features"><li>Up to 40 dev hours</li><li>1 dedicated developer</li><li>Weekly progress reports</li><li>Code review included</li><li>Basic support (9-5)</li><li>Slack communication</li></ul>
+                    <a href="#contact" class="btn btn-secondary pricing-btn">Get Started</a>
+                </div>
+                <div class="pricing-card featured reveal">
+                    <div class="pricing-badge">Most Popular</div>
+                    <div class="pricing-name">Business</div>
+                    <div class="pricing-price">$2,499<span>/mo</span></div>
+                    <p class="pricing-desc">Ideal for growing businesses.</p>
+                    <ul class="pricing-features"><li>Up to 120 dev hours</li><li>Dedicated team (2-3 devs)</li><li>Daily standups</li><li>QA & testing included</li><li>Project manager assigned</li><li>Extended support hours</li></ul>
+                    <a href="#contact" class="btn btn-primary pricing-btn">Get Started</a>
+                </div>
+                <div class="pricing-card reveal">
+                    <div class="pricing-name">Enterprise</div>
+                    <div class="pricing-price">$4,999<span>/mo</span></div>
+                    <p class="pricing-desc">Full-scale team for large projects.</p>
+                    <ul class="pricing-features"><li>Unlimited dev hours</li><li>Full-stack team (4-6 devs)</li><li>Architecture design</li><li>24/7 priority support</li><li>SLA guarantee</li><li>Dedicated Slack channel</li></ul>
+                    <a href="#contact" class="btn btn-secondary pricing-btn">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">FAQ</div>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-desc">Got questions? We've got answers.</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item reveal"><div class="faq-question">How quickly can you start?</div><p class="faq-answer">Typically within 1-2 weeks. After our discovery call, we provide a proposal within 48 hours.</p></div>
+                <div class="faq-item reveal"><div class="faq-question">Can I scale up or down?</div><p class="faq-answer">Yes! Our flexible model allows you to adjust resources month-to-month based on your needs.</p></div>
+                <div class="faq-item reveal"><div class="faq-question">Do you sign NDAs?</div><p class="faq-answer">Absolutely. We sign NDAs before any detailed discussions. Your IP is always protected.</p></div>
+                <div class="faq-item reveal"><div class="faq-question">What's your communication process?</div><p class="faq-answer">Dedicated Slack channel, weekly video calls, and access to our project management board.</p></div>
+                <div class="faq-item reveal"><div class="faq-question">Who owns the code?</div><p class="faq-answer">You do. 100%. All code and assets are your intellectual property with full source access.</p></div>
+                <div class="faq-item reveal"><div class="faq-question">Do you provide post-launch support?</div><p class="faq-answer">Yes! We offer ongoing maintenance packages and can train your team for handover.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Build Something Amazing?</h2>
+            <p>Join 200+ companies who've trusted Fanshein to bring their vision to life.</p>
+            <a href="#contact" class="btn btn-primary">Start Your Project →</a>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Let's Talk</h3>
+                    <p>Ready to transform your ideas into reality? Reach out and we'll respond within 24 hours.</p>
+                    <div class="contact-item"><div class="contact-icon">📧</div><div class="contact-detail"><h4>Email</h4><p><a href="mailto:info@fanshein.com">info@fanshein.com</a></p></div></div>
+                    <div class="contact-item"><div class="contact-icon">⏰</div><div class="contact-detail"><h4>Response Time</h4><p>Within 24 hours</p></div></div>
+                    <div class="contact-item"><div class="contact-icon">🌍</div><div class="contact-detail"><h4>Working Hours</h4><p>Mon-Fri, 9AM-6PM (UTC+8)</p></div></div>
+                </div>
+                <div class="contact-form-wrapper">
+                    <form class="contact-form" onsubmit="handleSubmit(event)">
+                        <h3>Send Us a Message</h3>
+                        <div class="form-row">
+                            <div class="form-group"><label>Name *</label><input type="text" placeholder="Your name" required></div>
+                            <div class="form-group"><label>Email *</label><input type="email" placeholder="you@company.com" required></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Company</label><input type="text" placeholder="Company name"></div>
+                            <div class="form-group"><label>Budget</label><select><option value="">Select budget</option><option><$10K</option><option>$10K-$25K</option><option>$25K-$50K</option><option>$50K-$100K</option><option>>$100K</option></select></div>
+                        </div>
+                        <div class="form-group"><label>Project Details *</label><textarea placeholder="Tell us about your project..." required></textarea></div>
+                        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-top">
+                <div class="footer-brand"><a href="#" class="logo">Fanshein</a><p>Enterprise quality, startup price. Building exceptional software solutions since 2019.</p></div>
+                <div class="footer-column"><h4>Company</h4><ul><li><a href="#about">About</a></li><li><a href="#services">Services</a></li><li><a href="#showcase">Case Studies</a></li><li><a href="#testimonials">Reviews</a></li></ul></div>
+                <div class="footer-column"><h4>Resources</h4><ul><li><a href="#blog">Blog</a></li><li><a href="#faq">FAQ</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#contact">Contact</a></li></ul></div>
+                <div class="footer-column"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li></ul></div>
+            </div>
+            <div class="footer-bottom"><div class="footer-copyright">© 2025 Fanshein. All rights reserved.</div></div>
+        </div>
+        <div class="brand-watermark">FANSHEIN</div>
+    </footer>
+
+    <script>
+        function toggleTheme() { document.body.classList.toggle('dark'); localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light'); }
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.body.classList.add('dark'); }
+        function handleSubmit(e) { e.preventDefault(); alert('Thanks! We\'ll get back to you within 24 hours.'); e.target.reset(); }
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
