@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Fanshein</title>
+    <meta name="description" content="Fanshein Privacy Policy - Learn how we collect, use, and protect your personal information.">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --bg-secondary: #fafafa;
+            --text: #0a0a0a;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --accent: #3b82f6;
+            --nav-height: 72px;
+        }
+
+        .dark {
+            --bg: #0a0a0a;
+            --bg-secondary: #111111;
+            --text: #fafafa;
+            --text-muted: #a1a1aa;
+            --border: #27272a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.8);
+            height: var(--nav-height);
+        }
+
+        .dark nav {
+            background: rgba(10,10,10,0.8);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .logo-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 8px;
+            color: white;
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            font-size: 0.875rem;
+            text-decoration: none;
+            background: var(--text);
+            color: var(--bg);
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .last-updated {
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2.5rem 0 1rem;
+        }
+
+        p, ul {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            margin-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        a {
+            color: var(--accent);
+        }
+
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        .footer-contact {
+            text-align: right;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            justify-content: flex-end;
+        }
+
+        .footer-contact-item svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .footer-contact-item a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        .footer-contact-item a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-copyright {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .content { padding: 6rem 1.5rem 3rem; }
+            .footer-top { flex-direction: column; }
+            .footer-contact { text-align: left; }
+            .footer-contact-item { justify-content: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo"><span class="logo-icon">F</span>Fanshein</a>
+            <a href="index.html#contact" class="btn">Contact Us</a>
+        </div>
+    </nav>
+
+    <div class="content">
+        <h1>Privacy Policy</h1>
+        <p class="last-updated">Last updated: January 2025</p>
+
+        <p>At Fanshein, we value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your data.</p>
+
+        <h2>Information We Collect</h2>
+        <p>We may collect the following types of information:</p>
+        <ul>
+            <li>Contact information you provide through our forms (name, email)</li>
+            <li>Project requirements and business information you share with us</li>
+            <li>Technical data such as browser type and IP address for website optimization</li>
+        </ul>
+
+        <h2>How We Use Your Information</h2>
+        <p>The information we collect is used to:</p>
+        <ul>
+            <li>Respond to your inquiries and provide requested services</li>
+            <li>Improve our website and service offerings</li>
+            <li>Send relevant updates about our services (with your consent)</li>
+        </ul>
+
+        <h2>Data Sharing</h2>
+        <p>We respect your privacy and will only share your personal information with third parties:</p>
+        <ul>
+            <li><strong>With your explicit consent</strong></li>
+            <li><strong>Service providers</strong> bound by confidentiality agreements</li>
+            <li><strong>Legal requirements</strong> when required by law</li>
+        </ul>
+        <p>We do not sell your personal information.</p>
+
+        <h2>Data Security</h2>
+        <p>We implement appropriate technical and organizational measures to protect your personal information, including SSL/TLS encryption and secure server infrastructure.</p>
+
+        <h2>Your Rights</h2>
+        <p>You have the right to access, correct, or delete your personal information. Contact us at <a href="/cdn-cgi/l/email-protection#abc2c5cdc4ebcdcac5d8c3cec2c585c8c4c6"><span class="__cf_email__" data-cfemail="046d6a626b4462656a776c616d6a2a676b69">[email&#160;protected]</span></a> to exercise these rights.</p>
+
+        <h2>Contact Us</h2>
+        <p>Questions about this Privacy Policy? Email us at <a href="/cdn-cgi/l/email-protection#b7ded9d1d8f7d1d6d9c4dfd2ded999d4d8da"><span class="__cf_email__" data-cfemail="ef86818980af898e819c878a8681c18c8082">[email&#160;protected]</span></a>.</p>
+        <p>Our address: 30 N Gould St Ste R, Sheridan, WY 82801</p>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo"><span class="logo-icon">F</span> Fanshein</div>
+                    <p>Enterprise quality, startup price. Building exceptional software solutions since 2019.</p>
+                </div>
+                <div class="footer-contact">
+                    <div class="footer-contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span>30 N Gould St Ste R, Sheridan, WY 82801</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <a href="/cdn-cgi/l/email-protection#a2cbccc4cde2c4c3ccd1cac7cbcc8cc1cdcf"><span class="__cf_email__" data-cfemail="8ce5e2eae3cceaede2ffe4e9e5e2a2efe3e1">[email&#160;protected]</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+               

@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fanshein - Enterprise Quality, Startup Price</title>
+    <meta name="description" content="Fanshein delivers enterprise-quality software development at startup-friendly prices.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --bg:#09090b;--bg-s:#0f0f23;--bg-card:rgba(255,255,255,0.04);--bg-card-h:rgba(255,255,255,0.07);
+            --tx:#f0f0f0;--tx-m:#8b8b9e;--bd:rgba(255,255,255,0.08);
+            --ac:#7c5cfc;--ac2:#3b82f6;--g1:#7c5cfc;--g2:#3b82f6;--g3:#c084fc;
+            --nh:72px;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        html{scroll-behavior:smooth;scroll-padding-top:var(--nh)}
+        body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--tx);line-height:1.6;overflow-x:hidden}
+
+        /* Ambient glow */
+        .glow{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(ellipse,rgba(124,92,252,.12),transparent 70%);pointer-events:none;z-index:0}
+        .glow2{position:fixed;bottom:-300px;right:-200px;width:600px;height:600px;background:radial-gradient(ellipse,rgba(59,130,246,.08),transparent 70%);pointer-events:none;z-index:0}
+
+        /* Nav */
+        nav{position:fixed;top:0;left:0;right:0;z-index:100;border-bottom:1px solid var(--bd);backdrop-filter:blur(20px);background:rgba(9,9,11,.85);height:var(--nh)}
+        .nav-c{max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;justify-content:space-between;align-items:center;height:100%}
+        .logo{font-size:1.4rem;font-weight:700;color:var(--tx);text-decoration:none;display:flex;align-items:center;gap:.5rem}
+        .logo-i{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;background:linear-gradient(135deg,var(--g1),var(--g2));border-radius:8px;color:#fff;font-weight:800;font-size:1rem}
+        .nav-l{display:flex;gap:1.75rem}
+        .nav-l a{color:var(--tx-m);text-decoration:none;font-size:.85rem;font-weight:500;transition:color .2s}
+        .nav-l a:hover{color:var(--tx)}
+        .nav-r{display:flex;align-items:center;gap:.75rem}
+        .mob-btn{display:none;background:none;border:none;cursor:pointer;padding:.5rem;color:var(--tx)}
+        .mob-btn svg{width:24px;height:24px}
+        .mob-menu{display:none;position:fixed;top:var(--nh);left:0;right:0;background:var(--bg);border-bottom:1px solid var(--bd);padding:1rem 2rem;flex-direction:column;gap:.75rem;z-index:99}
+        .mob-menu.active{display:flex}
+        .mob-menu a{color:var(--tx);text-decoration:none;font-size:.95rem;padding:.5rem 0}
+
+        /* Buttons */
+        .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.7rem 1.4rem;border-radius:10px;font-weight:500;font-size:.85rem;text-decoration:none;transition:all .2s;cursor:pointer;border:none}
+        .btn-p{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff}
+        .btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(124,92,252,.3)}
+        .btn-s{background:var(--bg-card);color:var(--tx);border:1px solid var(--bd)}
+        .btn-s:hover{background:var(--bg-card-h);border-color:rgba(255,255,255,.15)}
+
+        /* Sections */
+        section{padding:5rem 2rem;position:relative;z-index:1}
+        .ctn{max-width:1200px;margin:0 auto}
+        .sh{text-align:center;margin-bottom:3.5rem}
+        .sl{font-size:.8rem;font-weight:600;color:var(--ac);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.5rem}
+        .st{font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:700;letter-spacing:-.02em;margin-bottom:.75rem}
+        .sd{color:var(--tx-m);max-width:550px;margin:0 auto;font-size:.95rem}
+
+        /* Hero */
+        .hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+        .hero-bg{position:absolute;inset:0}
+        .hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.25}
+        .hero-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,9,11,.5) 0%,rgba(9,9,11,.95) 100%)}
+        .hero-pt{position:absolute;inset:0;z-index:2;overflow:hidden}
+        .pt{position:absolute;width:3px;height:3px;background:rgba(124,92,252,.4);border-radius:50%;animation:fu linear infinite}
+        @keyframes fu{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-10vh) scale(1);opacity:0}}
+        .hero-ct{position:relative;z-index:3;max-width:800px;padding:2rem}
+        .badge{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem .9rem;background:rgba(124,92,252,.1);border:1px solid rgba(124,92,252,.25);border-radius:9999px;font-size:.75rem;color:var(--g3);margin-bottom:1.75rem;animation:fiu .6s ease}
+        .badge-d{width:6px;height:6px;background:#22c55e;border-radius:50%;animation:pl 2s infinite}
+        @keyframes pl{0%,100%{opacity:1}50%{opacity:.4}}
+        @keyframes fiu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        .hero h1{font-size:clamp(2.2rem,7vw,4.2rem);font-weight:800;line-height:1.1;letter-spacing:-.03em;color:#fff;margin-bottom:1.25rem;animation:fiu .6s ease .1s backwards}
+        .hero .gt{background:linear-gradient(135deg,var(--g3),var(--g1),var(--g2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .hero p{font-size:1.1rem;color:var(--tx-m);max-width:560px;margin:0 auto 2rem;animation:fiu .6s ease .2s backwards}
+        .hero-btn{display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;animation:fiu .6s ease .3s backwards}
+
+        /* Stats - Rich Cards */
+        .stats{padding:4rem 2rem;position:relative;z-index:1}
+        .stats-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+        .stat-c{padding:2rem;background:var(--bg-card);border:1px solid var(--bd);border-radius:16px;position:relative;overflow:hidden;transition:all .4s}
+        .stat-c:hover{background:var(--bg-card-h);border-color:rgba(124,92,252,.3);transform:translateY(-4px)}
+        .stat-top{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem}
+        .stat-ic{width:48px;height:48px;border-radius:12px;overflow:hidden;flex-shrink:0}
+        .stat-ic img{width:100%;height:100%;object-fit:cover}
+        .stat-meta h4{font-size:.85rem;font-weight:600;color:var(--tx);margin-bottom:.15rem}
+        .stat-meta p{font-size:.75rem;color:var(--tx-m)}
+        .stat-v{font-size:2.75rem;font-weight:800;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;line-height:1}
+        .stat-desc{font-size:.85rem;color:var(--tx-m);line-height:1.6;margin-bottom:1rem}
+        .stat-bar{height:4px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden}
+        .stat-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--g1),var(--g2));transition:width 1.5s ease}
+
+        /* Partners */
+        .trust{padding:4rem 2rem;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
+        .trust-lb{text-align:center;font-size:.8rem;color:var(--tx-m);margin-bottom:2.5rem;text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+        .part-g{display:grid;grid-template-columns:repeat(5,1fr);gap:1.25rem}
+        .part-c{display:flex;flex-direction:column;align-items:center;gap:.75rem;padding:1.5rem 1rem;background:var(--bg-card);border:1px solid var(--bd);border-radius:14px;transition:all .3s}
+        .part-c:hover{background:var(--bg-card-h);border-color:rgba(124,92,252,.3);transform:translateY(-3px)}
+        .part-logo{width:56px;height:56px;border-radius:12px;overflow:hidden}
+        .part-logo img{width:100%;height:100%;object-fit:cover}
+        .part-n{font-size:.85rem;font-weight:600}
+        .part-t{font-size:.7rem;color:var(--tx-m)}
+
+        /* About */
+        .about-g{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center}
+        .about-img{border-radius:16px;overflow:hidden;height:420px;position:relative}
+        .about-img img{width:100%;height:100%;object-fit:cover}
+        .about-img-ov{position:absolute;inset:0;background:linear-gradient(135deg,rgba(124,92,252,.15),rgba(59,130,246,.1))}
+        .about-tx h2{font-size:2.2rem;font-weight:700;margin-bottom:1.25rem;letter-spacing:-.02em}
+        .about-tx p{color:var(--tx-m);margin-bottom:.75rem;line-height:1.8;font-size:.95rem}
+        .about-hl{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:1.5rem}
+        .hl-c{padding:1.25rem;background:var(--bg-card);border:1px solid var(--bd);border-radius:14px;transition:all .3s;position:relative;overflow:hidden}
+        .hl-c:hover{background:var(--bg-card-h);transform:translateY(-3px)}
+        .hl-ac{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--g1),var(--g2))}
+        .hl-v{font-size:1.75rem;font-weight:700;color:var(--ac)}
+        .hl-l{font-size:.8rem;color:var(--tx-m)}
+
+        /* Services */
+        .services{padding:5rem 2rem;border-top:1px solid var(--bd)}
+        .svc-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+        .svc-c{background:var(--bg-card);border:1px solid var(--bd);border-radius:16px;overflow:hidden;transition:all .4s}
+        .svc-c:hover{background:var(--bg-card-h);transform:translateY(-6px);border-color:rgba(124,92,252,.3)}
+        .svc-img{height:180px;overflow:hidden;position:relative}
+        .svc-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+        .svc-c:hover .svc-img img{transform:scale(1.05)}
+        .svc-img-ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(9,9,11,.8) 100%)}
+        .svc-body{padding:1.25rem}
+        .svc-c h3{font-size:1.1rem;font-weight:600;margin-bottom:.5rem}
+        .svc-c p{color:var(--tx-m);font-size:.85rem;line-height:1.7}
+
+        /* Tech */
+        .tech{padding:5rem 2rem;border-top:1px solid var(--bd)}
+        .tech-hero{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;margin-bottom:2.5rem}
+        .tech-img{border-radius:16px;overflow:hidden;height:350px}
+        .tech-img img{width:100%;height:100%;object-fit:cover}
+        .tech-g{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+        .tech-cat{padding:1.5rem;background:var(--bg-card);border:1px solid var(--bd);border-radius:14px}
+        .tech-cat h4{font-size:.8rem;font-weight:600;color:var(--ac);margin-bottom:.75rem;text-transform:uppercase}
+        .tech-list{display:flex;flex-wrap:wrap;gap:.4rem}
+        .tech-it{padding:.3rem .65rem;background:rgba(124,92,252,.08);border:1px solid rgba(124,92,252,.15);border-radius:6px;font-size:.75rem;color:var(--tx-m)}
+
+        /* Process */
+        .proc{padding:5rem 2rem;border-top:1px solid var(--bd)}
+        .proc-g{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+        .proc-s{background:var(--bg-card);border:1px solid var(--bd);border-radius:16px;overflow:hidden;transition:all .3s}
+        .proc-s:hover{background:var(--bg-card-h);transform:translateY(-4px);border-color:rgba(124,92,252,.3)}
+        .proc-img{height:140px;overflow:hidden}
+        .proc-img img{width:100%;height:100%;object-fit:cover}
+        .proc-body{padding:1.25rem;text-align:center}
+        .proc-n{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;background:linear-gradient(135deg,var(--g1),var(--g2));border-radius:50%;color:#fff;font-weight:700;font-size:.85rem;margin-bottom:.75rem}
+        .proc-s h3{font-size:1rem;font-weight:600;margin-bottom:.5rem}
+        .proc-s p{color:var(--tx-m);font-size:.8rem;line-height:1.6}
+
+        /* Showcase */
+        .show-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+        .show-c{background:var(--bg-card);border:1px solid var(--bd);border-radius:16px;overflow:hidden;transition:all .4s}
+        .show-c:hover{transform:translateY(-6px);border-color:rgba(124,92,252,.3)}
+        .show-img{height:200px;overflow:hidden}
+        .show-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+        .show-c:hover .show-img img{transform:scale(1.05)}
+        .show-ct{padding:1.25rem}
+        .show-tag{font-size:.7rem;font-weight:600;color:var(--ac);text-transform:uppercase;margin-bottom:.35rem;letter-spacing:.05em}
+        .show-c h3{font-size:1.1rem;font-weight:600;margin-bottom:.35rem}
+        .show-c p{color:var(--tx-m);font-size:.85rem}
+
+        /* Testimonials */
+        .test{padding:5rem 2rem;border-top:1px solid var(--bd)}
+        .test-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+        .test-c{padding:1.75rem;background:var(--bg-card);border:1px solid var(--bd);border-radius:14px;transition:all .3s}
+        .test-c:hover{background:var(--bg-card-h);transform:translateY(-3px)}
+        .test-stars{color:#fbbf24;margin-bottom:.75rem;font-size:1.1rem}
+        .test-tx{color:var(--tx-m);margin-bottom:1.25rem;font-style:italic;line-height:1.8;font-size:.9rem}
+        .test-a{display:flex;align-items:center;gap:.75rem}
+        .test-av{width:42px;height:42px;border-radius:50%;overflow:hidden}
+        .test-av img{width:100%;height:100%;object-fit:cover}
+        .test-info h4{font-size:.85rem;font-weight:600}
+        .test-info p{font-size:.75rem;color:var(--tx-m)}
+
+        /* Pricing */
+        .price{padding:5rem 2rem;border-top:1px solid var(--bd)}
+        .price-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+        .price-c{padding:2rem;background:var(--bg-card);border:1px solid var(--bd);border-radius:16px;position:relative;transition:all .3s}
+        .price-c:hover{transform:translateY(-4px);background:var(--bg-card-h)}
+        .price-c.feat{border-color:var(--ac);box-shadow:0 0 0 1px var(--ac),0 0 40px rgba(124,92,252,.1)}
+        .price-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;padding:.2rem .9rem;border-radius:9999px;font-size:.7rem;font-weight:600}
+        .price-name{font-size:1.15rem;font-weight:600;margin-bottom:.4rem}
+        .price-val{font-size:2.75rem;font-weight:700;margin-bottom:.4rem}
+        .price-val span{font-size:.9rem;font-weight:400;color:var(--tx-m)}
+        .price-desc{color:var(--tx-m);margin-bottom:1.25rem;font-size:.9rem}
+        .price-feat{list-style:none;margin-bottom:1.75rem}
+        .price-feat li{padding:.4rem 0;color:var(--tx-m);font-size:.85rem}
+        .price-feat li::before{content:"✓";color:var(--ac);margin-right:.6rem;font-weight:600}
+        .price-btn{width:100%;justify-content:center}
+
+        /* FAQ */
+        .faq{padding:5rem 2rem;border-top:1px solid var(--bd)}
+        .faq-g{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
+        .faq-it{padding:1.25rem;background:var(--bg-card);border:1px solid var(--bd);border-radius:12px}
+        .faq-q{font-weight:600;margin-bottom:.5rem;font-size:.95rem}
+        .faq-a{color:var(--tx-m);font-size:.85rem;line-height:1.7}
+
+        /* CTA */
+        .cta{position:relative;text-align:center;color:#fff;padding:5rem 2rem;overflow:hidden;border-top:1px solid var(--bd)}
+        .cta-bg{position:absolute;inset:0}
+        .cta-bg img{width:100%;height:100%;object-fit:cover;opacity:.15}
+        .cta-ov{position:absolute;inset:0;background:linear-gradient(135deg,rgba(124,92,252,.3),rgba(59,130,246,.2))}
+        .cta-ct{position:relative;z-index:1}
+        .cta h2{font-size:2.2rem;font-weight:700;margin-bottom:.75rem}
+        .cta p{color:var(--tx-m);margin-bottom:1.75rem;max-width:480px;margin-left:auto;margin-right:auto}
+        .cta .btn-p:hover{box-shadow:0 8px 30px rgba(124,92,252,.4)}
+
+        /* Contact */
+        .contact{padding:5rem 2rem;border-top:1px solid var(--bd)}
+        .contact-g{display:grid;grid-template-columns:1fr 1.5fr;gap:3.5rem}
+        .contact-info h3{font-size:1.8rem;font-weight:700;margin-bottom:.75rem}
+        .contact-info>p{color:var(--tx-m);margin-bottom:1.75rem;font-size:.95rem}
+        .contact-it{display:flex;gap:.75rem;margin-bottom:1.25rem;align-items:flex-start}
+        .contact-ic{width:36px;height:36px;background:var(--bg-card);border:1px solid var(--bd);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .contact-ic svg{width:18px;height:18px;color:var(--ac)}
+        .contact-d h4{font-size:.8rem;font-weight:600;margin-bottom:.15rem}
+        .contact-d p{color:var(--tx-m);font-size:.85rem}
+        .contact-d a{color:var(--ac);text-decoration:none}
+        .cf-wrap{background:var(--bg-card);border:1px solid var(--bd);border-radius:16px;padding:2rem}
+        .cf h3{font-size:1.15rem;font-weight:600;margin-bottom:1.25rem}
+        .f-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.75rem}
+        .f-grp{margin-bottom:.75rem}
+        .f-grp label{display:block;font-size:.8rem;font-weight:500;margin-bottom:.35rem;color:var(--tx-m)}
+        .f-grp input,.f-grp select,.f-grp textarea{width:100%;padding:.65rem .85rem;border:1px solid var(--bd);border-radius:8px;background:rgba(255,255,255,.03);color:var(--tx);font-family:inherit;font-size:.85rem}
+        .f-grp input:focus,.f-grp select:focus,.f-grp textarea:focus{outline:none;border-color:var(--ac)}
+        .f-grp textarea{min-height:100px;resize:vertical}
+
+        /* Footer */
+        footer{border-top:1px solid var(--bd);padding:3.5rem 2rem 1.5rem;position:relative;overflow:hidden}
+        .ft-ct{max-width:1200px;margin:0 auto;position:relative;z-index:1}
+        .ft-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1.5fr;gap:2.5rem;margin-bottom:2.5rem}
+        .ft-brand p{color:var(--tx-m);margin-top:.75rem;font-size:.85rem;line-height:1.7}
+        .ft-col h4{font-size:.8rem;font-weight:600;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--tx-m)}
+        .ft-col ul{list-style:none}
+        .ft-col li{margin-bottom:.5rem}
+        .ft-col a{color:var(--tx-m);text-decoration:none;font-size:.85rem;transition:color .2s}
+        .ft-col a:hover{color:var(--tx)}
+        .ft-ci{display:flex;gap:.6rem;margin-bottom:.6rem;color:var(--tx-m);font-size:.85rem;align-items:flex-start}
+        .ft-ci svg{width:14px;height:14px;flex-shrink:0;margin-top:3px}
+        .ft-bot{padding-top:1.5rem;border-top:1px solid var(--bd);text-align:center}
+        .ft-cr{color:var(--tx-m);font-size:.8rem}
+
+        /* Reveal */
+        .reveal{opacity:0;transform:translateY(25px);transition:all .6s ease}
+        .reveal.active{opacity:1;transform:translateY(0)}
+
+        /* AI + Human */
+        .aih{padding:5rem 2rem;border-top:1px solid var(--bd)}
+        .aih-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center}
+        .aih-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+        .aih-img{border-radius:16px;overflow:hidden;height:420px;position:relative}
+        .aih-img img{width:100%;height:100%;object-fit:cover}
+        .aih-float{position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;padding:1.25rem;background:rgba(9,9,11,.85);backdrop-filter:blur(10px);border:1px solid var(--bd);border-radius:12px}
+        .aih-card{padding:1.25rem;background:var(--bg-card);border:1px solid var(--bd);border-radius:14px}
+        .aih-card-icon{width:40px;height:40px;border-radius:10px;overflow:hidden;margin-bottom:.75rem}
+        .aih-card-icon img{width:100%;height:100%;object-fit:cover}
+
+        /* Responsive */
+        @media(max-width:1024px){
+            .tech-g,.proc-g{grid-template-columns:repeat(2,1fr)}
+            .ft-top{grid-template-columns:repeat(2,1fr)}
+            .tech-hero,.aih-grid{grid-template-columns:1fr}
+        }
+        @media(max-width:768px){
+            .nav-l{display:none}
+            .mob-btn{display:block}
+            .stats-g,.about-g,.contact-g,.aih-grid{grid-template-columns:1fr}
+            .svc-g,.show-g,.test-g,.price-g,.faq-g{grid-template-columns:1fr}
+            .tech-g,.proc-g{grid-template-columns:1fr}
+            .f-row{grid-template-columns:1fr}
+            .ft-top{grid-template-columns:1fr;gap:1.5rem}
+            .ft-bot{text-align:center}
+            section,.aih{padding:3rem 1.25rem}
+            .hero h1{font-size:2rem}
+            .hero p{font-size:1rem}
+            .about-img,.aih-img{height:250px}
+            .tech-img{height:250px}
+            .aih-grid{gap:2rem}
+            .stat-v{font-size:2.25rem}
+            .st{font-size:1.6rem}
+            .about-tx h2{font-size:1.75rem}
+            .cta h2{font-size:1.75rem}
+            .contact-info h3{font-size:1.5rem}
+            .price-val{font-size:2.25rem}
+            .proc-g{grid-template-columns:repeat(2,1fr)}
+            .hero-btn{flex-direction:column;align-items:center}
+            .hero-btn .btn{width:100%;max-width:280px;justify-content:center}
+        }
+        @media(max-width:480px){
+            .nav-c{padding:0 1rem}
+            .logo{font-size:1.2rem}
+            .stats-g{gap:1rem}
+            .stat-c{padding:1.5rem}
+            .proc-g,.faq-g,.aih-cards{grid-template-columns:1fr}
+            .price-g{gap:1rem}
+            .hero h1{font-size:1.75rem}
+            .badge{font-size:.7rem;padding:.3rem .7rem}
+            .aih-img{height:200px}
+            .aih-float{bottom:1rem;left:1rem;right:1rem;padding:1rem}
+        }
+    </style>
+</head>
+<body>
+    <div class="glow"></div>
+    <div class="glow2"></div>
+
+    <nav>
+        <div class="nav-c">
+            <a href="#" class="logo"><span class="logo-i">F</span>Fanshein</a>
+            <div class="nav-l">
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#showcase">Work</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
+            </div>
+            <div class="nav-r">
+                <a href="#contact" class="btn btn-p">Contact Us</a>
+                <button class="mob-btn" onclick="toggleMobileMenu()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div class="mob-menu" id="mobileMenu">
+        <a href="#about" onclick="closeMobileMenu()">About</a>
+        <a href="#services" onclick="closeMobileMenu()">Services</a>
+        <a href="#showcase" onclick="closeMobileMenu()">Work</a>
+        <a href="#pricing" onclick="closeMobileMenu()">Pricing</a>
+        <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
+        <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg"><img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80" alt=""></div>
+        <div class="hero-ov"></div>
+        <div class="hero-pt" id="particles"></div>
+        <div class="hero-ct">
+            <div class="badge"><span class="badge-d"></span> AI-Powered Development Studio</div>
+            <h1>Build Smarter With<br><span class="gt">AI-Driven SaaS</span></h1>
+            <p>We combine artificial intelligence with expert engineering to deliver enterprise-quality software at startup-friendly prices.</p>
+            <div class="hero-btn">
+                <a href="#contact" class="btn btn-p">Start Your Project →</a>
+                <a href="#showcase" class="btn btn-s">View Our Work</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats">
+        <div class="ctn">
+            <div class="stats-g">
+                <div class="stat-c reveal">
+                    <div class="stat-top"><div class="stat-ic"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=128&h=128&fit=crop&q=80" alt=""></div><div class="stat-meta"><h4>Projects Delivered</h4><p>Across 15+ industries worldwide</p></div></div>
+                    <div class="stat-v"><span class="counter" data-target="200">0</span>+</div>
+                    <p class="stat-desc">From MVPs to enterprise platforms, we've shipped products used by millions of users globally.</p>
+                    <div class="stat-bar"><div class="stat-bar-fill" data-width="95" style="width:0%"></div></div>
+                </div>
+                <div class="stat-c reveal">
+                    <div class="stat-top"><div class="stat-ic"><img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=128&h=128&fit=crop&q=80" alt=""></div><div class="stat-meta"><h4>Happy Clients</h4><p>Startups to Fortune 500</p></div></div>
+                    <div class="stat-v"><span class="counter" data-target="50">0</span>+</div>
+                    <p class="stat-desc">Long-term partnerships built on trust, transparency, and consistently exceeding expectations.</p>
+                    <div class="stat-bar"><div class="stat-bar-fill" data-width="80" style="width:0%"></div></div>
+                </div>
+                <div class="stat-c reveal">
+                    <div class="stat-top"><div class="stat-ic"><img src="https://images.unsplash.com/photo-1552581234-26160f608093?w=128&h=128&fit=crop&q=80" alt=""></div><div class="stat-meta"><h4>Client Satisfaction</h4><p>Based on post-project surveys</p></div></div>
+                    <div class="stat-v"><span class="counter" data-target="98">0</span>%</div>
+                    <p class="stat-desc">Our obsession with quality shows in every line of code, every sprint demo, every launch day.</p>
+                    <div class="stat-bar"><div class="stat-bar-fill" data-width="98" style="width:0%"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PARTNERS -->
+    <section id="about">
+        <div class="ctn">
+            <div class="about-g">
+                <div class="about-img reveal"><img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop&q=80" alt="Team"><div class="about-img-ov"></div></div>
+                <div class="about-tx">
+                    <h2>Why Choose Fanshein?</h2>
+                    <p>We're not your typical dev shop. Founded by engineers from top tech companies, we bring Silicon Valley expertise at a fraction of the cost.</p>
+                    <p>Our AI-driven development process accelerates delivery by 3x while maintaining the highest code quality standards.</p>
+                    <div class="about-hl">
+                        <div class="hl-c reveal"><div class="hl-ac"></div><div class="hl-v">6+</div><div class="hl-l">Years of Experience</div></div>
+                        <div class="hl-c reveal"><div class="hl-ac"></div><div class="hl-v">24/7</div><div class="hl-l">Support Available</div></div>
+                        <div class="hl-c reveal"><div class="hl-ac"></div><div class="hl-v">40%</div><div class="hl-l">Cost Savings</div></div>
+                        <div class="hl-c reveal"><div class="hl-ac"></div><div class="hl-v">3x</div><div class="hl-l">Faster with AI</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI + HUMAN -->
+    <section class="aih">
+        <div class="ctn">
+            <div class="aih-grid">
+                <div>
+                    <div class="sl">Our Philosophy</div>
+                    <h2 class="st" style="text-align:left">AI Empowers.<br>Humans Deliver.</h2>
+                    <p style="color:var(--tx-m);font-size:.95rem;line-height:1.85;margin-bottom:1rem">AI code generators can write boilerplate in seconds. But when it comes to complex architecture decisions, nuanced business logic, and systems that need to scale under real-world pressure — you need experienced engineers who truly understand the problem.</p>
+                    <p style="color:var(--tx-m);font-size:.95rem;line-height:1.85;margin-bottom:1.75rem">We use AI as a powerful accelerator, not a replacement. Our senior engineers review every line, design every system, and own every decision. <strong style="color:var(--tx)">The tool changes. The expertise doesn't.</strong></p>
+                    <div class="aih-cards">
+                        <div class="aih-card">
+                            <div class="aih-card-icon"><img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=80&h=80&fit=crop&q=80" alt=""></div>
+                            <div style="font-size:.85rem;font-weight:600;margin-bottom:.25rem">AI Handles</div>
+                            <div style="font-size:.8rem;color:var(--tx-m);line-height:1.6">Boilerplate, repetitive patterns, code generation, testing scaffolds, documentation drafts</div>
+                        </div>
+                        <div class="aih-card">
+                            <div class="aih-card-icon"><img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=80&h=80&fit=crop&q=80" alt=""></div>
+                            <div style="font-size:.85rem;font-weight:600;margin-bottom:.25rem">Humans Own</div>
+                            <div style="font-size:.8rem;color:var(--tx-m);line-height:1.6">Architecture design, security review, performance optimization, business logic, critical decisions</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="aih-img">
+                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=600&fit=crop&q=80" alt="Team collaboration">
+                    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(124,92,252,.15),rgba(59,130,246,.1))"></div>
+                    <div class="aih-float">
+                        <div style="font-size:.9rem;font-weight:600;margin-bottom:.35rem;color:#fff">Expertise Never Goes Out of Style</div>
+                        <div style="font-size:.8rem;color:var(--tx-m);line-height:1.6">AI tools evolve every month. What stays constant is the judgment, creativity, and problem-solving of seasoned engineers who've shipped hundreds of products.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="services">
+        <div class="ctn">
+            <div class="sh"><div class="sl">Services</div><h2 class="st">What We Build</h2><p class="sd">End-to-end AI-powered development services</p></div>
+            <div class="svc-g">
+                <div class="svc-c reveal"><div class="svc-img"><img src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&h=400&fit=crop&q=80" alt=""><div class="svc-img-ov"></div></div><div class="svc-body"><h3>Web Applications</h3><p>Scalable, responsive web apps built with React, Vue, or Next.js. From dashboards to SaaS platforms.</p></div></div>
+                <div class="svc-c reveal"><div class="svc-img"><img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop&q=80" alt=""><div class="svc-img-ov"></div></div><div class="svc-body"><h3>Mobile Apps</h3><p>Native and cross-platform mobile applications using React Native, Flutter, or Swift/Kotlin.</p></div></div>
+                <div class="svc-c reveal"><div class="svc-img"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=400&fit=crop&q=80" alt=""><div class="svc-img-ov"></div></div><div class="svc-body"><h3>API Development</h3><p>RESTful and GraphQL APIs that are secure, documented, and built to scale.</p></div></div>
+                <div class="svc-c reveal"><div class="svc-img"><img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=600&h=400&fit=crop&q=80" alt=""><div class="svc-img-ov"></div></div><div class="svc-body"><h3>MVP Development</h3><p>Rapid prototyping to validate your ideas quickly. Launch in weeks, not months.</p></div></div>
+                <div class="svc-c reveal"><div class="svc-img"><img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=400&fit=crop&crop=bottom&q=80" alt=""><div class="svc-img-ov"></div></div><div class="svc-body"><h3>Cloud Solutions</h3><p>AWS, GCP, and Azure deployments with CI/CD pipelines, monitoring, and auto-scaling.</p></div></div>
+                <div class="svc-c reveal"><div class="svc-img"><img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&h=400&fit=crop&q=80" alt=""><div class="svc-img-ov"></div></div><div class="svc-body"><h3>Maintenance & Support</h3><p>Ongoing support, bug fixes, and feature updates to keep your product running smoothly.</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECH -->
+    <section id="tech" class="tech">
+        <div class="ctn">
+            <div class="tech-hero reveal">
+                <div><div class="sl">Technology</div><h2 class="st" style="text-align:left">Our Tech Stack</h2><p style="color:var(--tx-m);margin-bottom:1.5rem;font-size:.95rem;line-height:1.8">We use the latest technologies paired with AI-assisted development to build products that scale from day one.</p></div>
+                <div class="tech-img"><img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=500&fit=crop&q=80" alt=""></div>
+            </div>
+            <div class="tech-g">
+                <div class="tech-cat reveal"><h4>Frontend</h4><div class="tech-list"><span class="tech-it">React</span><span class="tech-it">Vue.js</span><span class="tech-it">Next.js</span><span class="tech-it">TypeScript</span><span class="tech-it">Tailwind</span></div></div>
+                <div class="tech-cat reveal"><h4>Backend</h4><div class="tech-list"><span class="tech-it">Node.js</span><span class="tech-it">Python</span><span class="tech-it">Go</span><span class="tech-it">Java</span><span class="tech-it">GraphQL</span></div></div>
+                <div class="tech-cat reveal"><h4>Mobile</h4><div class="tech-list"><span class="tech-it">React Native</span><span class="tech-it">Flutter</span><span class="tech-it">Swift</span><span class="tech-it">Kotlin</span></div></div>
+                <div class="tech-cat reveal"><h4>Cloud & DevOps</h4><div class="tech-list"><span class="tech-it">AWS</span><span class="tech-it">GCP</span><span class="tech-it">Docker</span><span class="tech-it">K8s</span><span class="tech-it">Terraform</span></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process" class="proc">
+        <div class="ctn">
+            <div class="sh"><div class="sl">Process</div><h2 class="st">How We Work</h2><p class="sd">A proven process that delivers results</p></div>
+            <div class="proc-g">
+                <div class="proc-s reveal"><div class="proc-img"><img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop&q=80" alt=""></div><div class="proc-body"><div class="proc-n">1</div><h3>Discovery</h3><p>Deep dive into your vision, goals, and requirements.</p></div></div>
+                <div class="proc-s reveal"><div class="proc-img"><img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=400&h=300&fit=crop&q=80" alt=""></div><div class="proc-body"><div class="proc-n">2</div><h3>Planning</h3><p>Architecture, timeline, and milestones with full transparency.</p></div></div>
+                <div class="proc-s reveal"><div class="proc-img"><img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=300&fit=crop&q=80" alt=""></div><div class="proc-body"><div class="proc-n">3</div><h3>Development</h3><p>Agile sprints with regular demos. AI-accelerated delivery.</p></div></div>
+                <div class="proc-s reveal"><div class="proc-img"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop&q=80" alt=""></div><div class="proc-body"><div class="proc-n">4</div><h3>Launch & Scale</h3><p>Smooth deployment and ongoing support for growth.</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SHOWCASE -->
+    <section id="showcase">
+        <div class="ctn">
+            <div class="sh"><div class="sl">Portfolio</div><h2 class="st">Featured Work</h2><p class="sd">Some of our recent projects</p></div>
+            <div class="show-g">
+                <div class="show-c reveal"><div class="show-img"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=440&fit=crop&q=80" alt=""></div><div class="show-ct"><div class="show-tag">SaaS Platform</div><h3>Analytics Dashboard</h3><p>Real-time analytics processing 10M+ events daily.</p></div></div>
+                <div class="show-c reveal"><div class="show-img"><img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=440&fit=crop&q=80" alt=""></div><div class="show-ct"><div class="show-tag">Mobile App</div><h3>HealthTrack Pro</h3><p>iOS and Android app with 100K+ downloads.</p></div></div>
+                <div class="show-c reveal"><div class="show-img"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=440&fit=crop&q=80" alt=""></div><div class="show-ct"><div class="show-tag">E-commerce</div><h3>ShopFlow</h3><p>Headless commerce handling $5M+ in transactions.</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="test">
+        <div class="ctn">
+            <div class="sh"><div class="sl">Testimonials</div><h2 class="st">What Clients Say</h2><p class="sd">Don't just take our word for it</p></div>
+            <div class="test-g">
+                <div class="test-c reveal"><div class="test-stars">★★★★★</div><p class="test-tx">"Fanshein delivered our MVP in just 6 weeks. Their AI-driven process was incredibly efficient."</p><div class="test-a"><div class="test-av"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&fit=crop&crop=face&q=80" alt=""></div><div class="test-info"><h4>John Doe</h4><p>CEO, TechStartup</p></div></div></div>
+                <div class="test-c reveal"><div class="test-stars">★★★★★</div><p class="test-tx">"The quality of code and attention to detail is exceptional. Best agency we've worked with."</p><div class="test-a"><div class="test-av"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=96&h=96&fit=crop&crop=face&q=80" alt=""></div><div class="test-info"><h4>Sarah Lee</h4><p>CTO, GrowthCo</p></div></div></div>
+                <div class="test-c reveal"><div class="test-stars">★★★★★</div><p class="test-tx">"Scaled from 1K to 100K users without a single incident. Truly reliable engineering."</p><div class="test-a"><div class="test-av"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=96&h=96&fit=crop&crop=face&q=80" alt=""></div><div class="test-info"><h4>Mike Chen</h4><p>Founder, ScaleApp</p></div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="price">
+        <div class="ctn">
+            <div class="sh"><div class="sl">Pricing</div><h2 class="st">Simple, Transparent Pricing</h2><p class="sd">Choose the plan that fits your needs</p></div>
+            <div class="price-g">
+                <div class="price-c reveal"><div class="price-name">Starter</div><div class="price-val">$999<span>/mo</span></div><p class="price-desc">Perfect for small projects and MVPs.</p><ul class="price-feat"><li>Up to 40 dev hours</li><li>1 dedicated developer</li><li>Weekly progress reports</li><li>Slack communication</li><li>Basic support</li></ul><a href="#contact" class="btn btn-s price-btn">Get Started</a></div>
+                <div class="price-c feat reveal"><div class="price-badge">Most Popular</div><div class="price-name">Business</div><div class="price-val">$2,499<span>/mo</span></div><p class="price-desc">Ideal for growing businesses.</p><ul class="price-feat"><li>Up to 120 dev hours</li><li>Dedicated team (2-3 devs)</li><li>Daily standups</li><li>QA & testing included</li><li>Project manager</li><li>Extended support</li></ul><a href="#contact" class="btn btn-p price-btn">Get Started</a></div>
+                <div class="price-c reveal"><div class="price-name">Enterprise</div><div class="price-val">$4,999<span>/mo</span></div><p class="price-desc">Full-scale team for large projects.</p><ul class="price-feat"><li>Unlimited dev hours</li><li>Full-stack team (4-6)</li><li>Architecture design</li><li>24/7 priority support</li><li>SLA guarantee</li><li>Dedicated Slack</li></ul><a href="#contact" class="btn btn-s price-btn">Get Started</a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="ctn">
+            <div class="sh"><div class="sl">FAQ</div><h2 class="st">Frequently Asked Questions</h2><p class="sd">Got questions? We've got answers.</p></div>
+            <div class="faq-g">
+                <div class="faq-it reveal"><div class="faq-q">How quickly can you start?</div><p class="faq-a">Typically within 1-2 weeks. After our discovery call, we provide a proposal within 48 hours.</p></div>
+                <div class="faq-it reveal"><div class="faq-q">Can I scale up or down?</div><p class="faq-a">Yes! Our flexible model allows you to adjust resources month-to-month.</p></div>
+                <div class="faq-it reveal"><div class="faq-q">Do you sign NDAs?</div><p class="faq-a">Absolutely. We sign NDAs before any detailed discussions. Your IP is always protected.</p></div>
+                <div class="faq-it reveal"><div class="faq-q">What's your communication process?</div><p class="faq-a">Dedicated Slack channel, weekly video calls, and project management board access.</p></div>
+                <div class="faq-it reveal"><div class="faq-q">Who owns the code?</div><p class="faq-a">You do. 100%. All code and assets are your intellectual property.</p></div>
+                <div class="faq-it reveal"><div class="faq-q">Do you provide post-launch support?</div><p class="faq-a">Yes! We offer maintenance packages and can train your team for handover.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="cta-bg"><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1920&h=600&fit=crop&q=80" alt=""></div>
+        <div class="cta-ov"></div>
+        <div class="cta-ct"><h2>Ready to Build Something Amazing?</h2><p>Join 200+ companies who've trusted Fanshein to bring their vision to life.</p><a href="#contact" class="btn btn-p">Start Your Project →</a></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact">
+        <div class="ctn">
+            <div class="contact-g">
+                <div class="contact-info">
+                    <h3>Let's Talk</h3>
+                    <p>Ready to transform your ideas into reality? We'll respond within 24 hours.</p>
+                    <div class="contact-it"><div class="contact-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div class="contact-d"><h4>Email</h4><p><a href="mailto:info@fanshein.com">info@fanshein.com</a></p></div></div>
+                    <div class="contact-it"><div class="contact-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="contact-d"><h4>Response Time</h4><p>Within 24 hours</p></div></div>
+                    <div class="contact-it"><div class="contact-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="contact-d"><h4>Address</h4><p>30 N Gould St Ste R<br>Sheridan, WY 82801</p></div></div>
+                </div>
+                <div class="cf-wrap">
+                    <form class="cf" onsubmit="handleSubmit(event)">
+                        <h3>Send Us a Message</h3>
+                        <div class="f-row"><div class="f-grp"><label>Name *</label><input type="text" placeholder="Your name" required></div><div class="f-grp"><label>Email *</label><input type="email" placeholder="you@company.com" required></div></div>
+                        <div class="f-row"><div class="f-grp"><label>Company</label><input type="text" placeholder="Company name"></div><div class="f-grp"><label>Budget</label><select><option value="">Select budget</option><option>&lt;$10K</option><option>$10K-$25K</option><option>$25K-$50K</option><option>$50K-$100K</option><option>&gt;$100K</option></select></div></div>
+                        <div class="f-grp"><label>Project Details *</label><textarea placeholder="Tell us about your project..." required></textarea></div>
+                        <button type="submit" class="btn btn-p" style="width:100%;justify-content:center">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="ft-ct">
+            <div class="ft-top">
+                <div class="ft-brand"><a href="#" class="logo"><span class="logo-i">F</span>Fanshein</a><p>AI-driven development studio. Enterprise quality, startup price.</p></div>
+                <div class="ft-col"><h4>Company</h4><ul><li><a href="#about">About</a></li><li><a href="#services">Services</a></li><li><a href="#showcase">Case Studies</a></li><li><a href="#testimonials">Reviews</a></li></ul></div>
+                <div class="ft-col"><h4>Resources</h4><ul><li><a href="#faq">FAQ</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#contact">Contact</a></li></ul></div>
+                <div class="ft-col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li></ul></div>
+                <div class="ft-col"><h4>Contact</h4><div class="ft-ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>30 N Gould St Ste R<br>Sheridan, WY 82801</span></div><div class="ft-ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:info@fanshein.com" style="color:var(--tx-m);text-decoration:none">info@fanshein.com</a></div></div>
+            </div>
+            <div class="ft-bot"><div class="ft-cr">© 2025 Fanshein. All rights reserved.</div></div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu(){document.getElementById('mobileMenu').classList.toggle('active')}
+        function closeMobileMenu(){document.getElementById('mobileMenu').classList.remove('active')}
+        function handleSubmit(e){e.preventDefault();alert("Thanks! We'll get back to you within 24 hours.");e.target.reset()}
+        const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('active')})},{threshold:.1});
+        document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+        // Counter + bar animation
+        function animateStats(){
+            document.querySelectorAll('.counter').forEach(c=>{const t=+c.dataset.target,s=performance.now();(function u(n){const p=Math.min((n-s)/2000,1);c.textContent=Math.floor(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(u)})(s)});
+            document.querySelectorAll('.stat-bar-fill').forEach(b=>{b.style.width=b.dataset.width+'%'});
+        }
+        const sObs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){animateStats();sObs.disconnect()}})},{threshold:.3});
+        const ss=document.querySelector('.stats');if(ss)sObs.observe(ss);
+        // Particles
+        (function(){const c=document.getElementById('particles');if(!c)return;for(let i=0;i<25;i++){const p=document.createElement('div');p.className='pt';p.style.left=Math.random()*100+'%';p.style.animationDuration=(Math.random()*8+5)+'s';p.style.animationDelay=(Math.random()*5)+'s';p.style.width=p.style.height=(Math.random()*3+1.5)+'px';c.appendChild(p)}})();
+    </script>
+</body>
+</html>
